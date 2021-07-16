@@ -1,9 +1,7 @@
 <?php
-
     require_once "vendor/autoload.php";
 
     use Controller\Main;
-    
 
     $data = new Main();
     $all = $data->getData();
@@ -44,23 +42,7 @@
                         <p><?= $row["sku"]; ?></p>
                         <p><?= $row["name"];?></p>
                         <p><?= $row["price"];?>$</p>
-                        <p>
-
-                        <?php 
-                            switch ($row['type']) {
-                                    case 'dvd':
-                                        echo 'Size: '.$row['Size'];
-                                        break;
-                                    case 'furniture':
-                                        echo 'Dimensions: '.$row['Dimensions'];
-                                        break;
-                                    case 'book':
-                                        echo 'Weight: '.$row['Weight'];
-                                        break;
-                                }
-                        ?>
-
-                        </p>
+                        <p><?= $row["characteristic"];?>: <?= $row["value"];?></p>
                     </div>
                 </div>
             <?php } ?>
