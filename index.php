@@ -3,11 +3,11 @@
 
     use Controller\Main;
 
-    $data = new Main();
-    $all = $data->getData();
+    $controller = new Main();
+    $products = $controller->getData();
 
     if(isset($_POST['submit'])){
-        $data->delete(array_keys($_POST));
+        $controller->delete(array_keys($_POST));
     }
 ?>
 
@@ -32,19 +32,24 @@
     </header>
 
     <form class="product-list" id="product-list" method="POST">
-        <?php if($all->num_rows == 0){ ?>
+
+        <?php if(!$products){ ?>
+
             <p>There are no products to be displayed</p>
+
         <?php } else { ?>
-            <?php while ($row = $all->fetch_assoc()) { ?>
+            <?php foreach($products as $product) { ?>
+
                 <div class="product">
-                    <input type="checkbox" class="delete-checkbox" name="<?= $row["sku"]; ?>" id="<?= $row["sku"]; ?>">
+                    <input type="checkbox" class="delete-checkbox" name="<?= $product["sku"]; ?>" id="<?= $product["sku"]; ?>">
                     <div>
-                        <p><?= $row["sku"]; ?></p>
-                        <p><?= $row["name"];?></p>
-                        <p><?= $row["price"];?>$</p>
-                        <p><?= $row["characteristic"];?>: <?= $row["value"];?></p>
+                        <p><?= $product["sku"]; ?></p>
+                        <p><?= $product["name"];?></p>
+                        <p><?= $product["price"];?>$</p>
+                        <p><?= $product["characteristic"] . ": " . $product["value"];?></p>
                     </div>
                 </div>
+
             <?php } ?>
         <?php }?>
     </form>

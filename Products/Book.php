@@ -2,7 +2,7 @@
 namespace Products;
 
 use Products\MainProduct;
-use Model\Model;
+use Model\DB;
 
 class Book extends MainProduct
 {
@@ -18,11 +18,39 @@ class Book extends MainProduct
     }
 
     public function insert(){
-        $sql = "INSERT INTO products (sku, name, price, type, characteristic, value)
-            VALUES ('".$this->sku."','".$this->name."','"
-            .$this->price."','".$this->type."','Weight','".$this->weight." KG')";
+
+        $db = new DB();
+        $conn = $db->connect();
         
-        $db = new Model();
-        $db->insert($sql);
+        $query = "INSERT INTO products
+                    SET
+                        sku=:sku,
+                        name=:name,
+                        price=:price,
+                        type=:type,
+                        characteristic=:characteristic,
+                        value=:value";
+      
+        $stmt = $conn->prepare($query);
+      
+        $this->sku = htmlspecialchars(strip_tags($this->sku));
+        $this->name = htmlspecialchars(strip_tags($this->name));
+        $this->price = htmlspecialchars(strip_tags($this->price));
+        $this->type = htmlspecialchars(strip_tags($this->type));
+        $this->characteristic = 'Weight'; 
+        $this->weight = htmlspecialchars(strip_tags($this->weight . " KG"));
+      
+        $stmt->bindParam(":sku", $this->sku);
+        $stmt->bindParam(":name", $this->name);
+        $stmt->bindParam(":price", $this->price);
+        $stmt->bindParam(":type", $this->type);
+        $stmt->bindParam(":characteristic", $this->characteristic);
+        $stmt->bindParam(":value", $this->weight);
+      
+        if($stmt->execute()){
+            return true;
+        }
+      
+        return false;
     }
 }
