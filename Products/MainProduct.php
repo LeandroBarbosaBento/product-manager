@@ -1,8 +1,5 @@
 <?php
 namespace Products;
-
-use Model\Model;
-
 abstract class MainProduct
 {
     public $sku;
