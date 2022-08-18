@@ -8,18 +8,23 @@ class DB
  * Values replaced when uploaded to Bitbucket
  */
     private $host = 'localhost';
-    private $user = 'scandiweb_user';
-    private $dbname = 'db_scandiweb_task';
-    private $password = 'Bs)A$o|~>+VDh7vd';
+    private $user = 'leandro';
+    private $dbname = 'task_db';
+    private $password = '426351';
+    public $conn;
 
     public function connect()
     {
-        $conn = mysqli_connect($this->host, $this->user, $this->password, $this->dbname);
-        if(!$conn){
-            die('Connection failed!');
-        } else {
-            return $conn;
+        $this->conn = null;
+  
+        try{
+            $this->conn = new \PDO("mysql:host=" . $this->host . ";dbname=" . $this->dbname, $this->user, $this->password);
+            $this->conn->exec("set names utf8");
+        }catch(\PDOException $exception){
+            echo "Connection error: " . $exception->getMessage();
         }
+  
+        return $this->conn;
     }
 
 }
