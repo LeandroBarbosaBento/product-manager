@@ -29,14 +29,14 @@ Also used Bootstrap in the forms (for adding new products).
 
 * adding different product types
 
-![02](/img/01.png)
-![03](/img/01.png)
-![04](/img/01.png)
+![02](/img/02.png)
+![03](/img/03.png)
+![04](/img/04.png)
 
 * not empty products list
 
-![05](/img/01.png)
+![05](/img/05.png)
 
 * selected products for mass delete
 
-![06](/img/01.png)
+![06](/img/06.png)
